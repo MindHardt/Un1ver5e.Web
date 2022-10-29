@@ -31,20 +31,15 @@ namespace Un1ver5e.ru.Pages
         [BindProperty]
         public int? Charisma { get; set; }
 
-        public Guid SessionGuid => Guid.NewGuid();
-
         public IActionResult OnPost()
         {
-            if (Request.Form["action"] == "🔄")
+            return Request.Form["action"].ToString() switch
             {
-                return RedirectToPage();
-            }
+                "💾" => File(PrepareSvgFile(), "application/octet-stream", $"{Name ?? "template"}.svg"),
+                "👀" => File(PrepareSvgFile(), "image/svg+xml"),
 
-            Stream result = PrepareSvgFile();
-
-            return Request.Form["action"] == "Сохранить" ?
-                File(result, "application/octet-stream", $"{Name}.svg") :   //Download
-                File(result, "image/svg+xml");                              //Display
+                _ => RedirectToPage()
+            };
         }
 
         public SelectList Races => new(_races);
@@ -96,26 +91,6 @@ namespace Un1ver5e.ru.Pages
             "[CE] Хаотично-злой",
         };
 
-        public SelectList Stats => new(_currentStats);
-        private readonly int[] _currentStats = GetRandomStats();
-        private static int[] GetRandomStats()
-        {
-            int[] rawResults = new int[6];
-
-            for (int s = 0; s < 6; s++)
-            {
-                Random rnd = Random.Shared;
-                int[] throws = { rnd.Next(1, 7), rnd.Next(1, 7), rnd.Next(1, 7), rnd.Next(1, 7) };
-
-                rawResults[s] = throws.Sum() - throws.Min();
-            }
-            if (rawResults.Select(s => GetMod(s)).Sum() < 3 || rawResults.Max() < 14) 
-                return GetRandomStats(); //Filter out low results, their chances are not really high
-
-            Array.Sort(rawResults);
-            Array.Reverse(rawResults);
-            return rawResults;
-        }
         private static int GetMod(int stat) => stat / 2 - 5;
         private static string FormatMod(int stat) 
             => GetMod(stat) > -1 ? 

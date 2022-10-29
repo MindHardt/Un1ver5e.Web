@@ -1,66 +1,74 @@
 ﻿@page
 @model Un1ver5e.ru.Pages.CharGenModel
 @{
+	ViewData["Title"] = "Генератор";
 }
+
+<script type="text/javascript">
+var stats = [15, 14, 13, 12, 10, 8];
+
+function recalculateStats() {
+    stats = getFineStats();
+    alert(stats);
+}
+</script>
 
 @using(Html.BeginForm(FormMethod.Post))
 {
-	@Model.Name @Model.Race @Model.Class @Model.Gender @Model.Alignment
+	<label for="Name">Введите имя персонажа</label><br />
+	@Html.TextBox("Name")<br />
 
-	<p>Введите имя персонажа</p>
-	@Html.TextBox("Name")
+	<label for="Race">Выберите расу</label><br />
+	@Html.DropDownList("Race", Model.Races, @Model.Race ?? "Раса")<br />
 
-	<p>Выберите расу</p>
-	@Html.DropDownList("Race", Model.Races, @Model.Race ?? "Раса")
+	<label for="Class">Выберите класс</label><br />
+	@Html.DropDownList("Class", Model.Classes, @Model.Class ?? "Класс", new { onchange = "showBestStats()" })<br />
 
-	<p>Выберите класс</p>
-	@Html.DropDownList("Class", Model.Classes, @Model.Class ?? "Класс", new { onchange = "showBestStats()" })
+	<label for="Gender">Выберите пол персонажа</label><br />
+	@Html.DropDownList("Gender", Model.Genders, @Model.Gender ?? "Пол")<br />
 
-	<p>Выберите пол персонажа</p>
-	@Html.DropDownList("Gender", Model.Genders, @Model.Gender ?? "Пол")
+	<label for="Alignment">Выберите мировоззрение</label><br />
+	@Html.DropDownList("Alignment", Model.Alignments, @Model.Alignment ?? "Мировоззрение")<br />
 
-	<p>Выберите мировоззрение</p>
-	@Html.DropDownList("Alignment", Model.Alignments, @Model.Alignment ?? "Мировоззрение")
-
-	<p>Распределите характеристики</p>
-	<table border="0">
+	<label for="StatsTable">Распределите характеристики : <script>stats</script></label>
+	<button onclick="recalculateStats()" type="button">🔁</button>
+	<table border="0" id="StatsTable">
 		<tr>
-			<td>@Html.DisplayName("💪")</td>
-			<td>@Html.DropDownList("Strength", @Model.Stats, @Model.Strength?.ToString() ?? "СИЛ")</td>
+			<td>💪</td>
+			<td>@Html.DropDownList("Strength", Enumerable.Empty<SelectListItem>() ,@Model.Strength?.ToString() ?? "СИЛ")</td>
 			<td><div id="StrLike"></div></td>
 		</tr>
 		<tr>
-			<td>@Html.DisplayName("🏃‍")</td>
-			<td>@Html.DropDownList("Dexterity", @Model.Stats, @Model.Dexterity?.ToString() ?? "ЛВК")</td>
+			<td>🏃‍</td>
+			<td>@Html.DropDownList("Dexterity", Enumerable.Empty<SelectListItem>(), @Model.Dexterity?.ToString() ?? "ЛВК")</td>
 			<td><div id="DexLike"></div></td>
 		</tr>
 		<tr>
-			<td>@Html.DisplayName("🩸")</td>
-			<td>@Html.DropDownList("Constitution", @Model.Stats, @Model.Constitution?.ToString() ?? "ВЫН")</td>
+			<td>🩸</td>
+			<td>@Html.DropDownList("Constitution", Enumerable.Empty<SelectListItem>(), @Model.Constitution?.ToString() ?? "ВЫН")</td>
 			<td><div id="ConLike"></div></td>
 		</tr>
 		<tr>
-			<td>@Html.DisplayName("🧠")</td>
-			<td>@Html.DropDownList("Intelligence", @Model.Stats, @Model.Intelligence?.ToString() ?? "ИНТ")</td>
+			<td>🧠</td>
+			<td>@Html.DropDownList("Intelligence", Enumerable.Empty<SelectListItem>(), @Model.Intelligence?.ToString() ?? "ИНТ")</td>
 			<td><div id="IntLike"></div></td>
 		</tr>
 		<tr>
-			<td>@Html.DisplayName("🦉")</td>
-			<td>@Html.DropDownList("Wisdom", @Model.Stats, @Model.Wisdom?.ToString() ?? "МДР")</td>
+			<td>🦉</td>
+			<td>@Html.DropDownList("Wisdom", Enumerable.Empty<SelectListItem>(), @Model.Wisdom?.ToString() ?? "МДР")</td>
 			<td><div id="WisLike"></div></td>
 		</tr>
 		<tr>
-			<td>@Html.DisplayName("👄")</td>
-			<td>@Html.DropDownList("Charisma", @Model.Stats, @Model.Charisma?.ToString() ?? "ХАР")</td>
+			<td>👄</td>
+			<td>@Html.DropDownList("Charisma", Enumerable.Empty<SelectListItem>(), @Model.Charisma?.ToString() ?? "ХАР")</td>
 			<td><div id="ChaLike"></div></td>
 		</tr>
 
 	</table>
 
-	<input type="submit" name="action" value="🔄">
-	<input type="submit" name="action" value="Сохранить">
-	<input type="submit" name="action" value="Посмотреть">
+	<input type="submit" name="action" value="👀">
+	<input type="submit" name="action" value="💾">
 	
-	<p style="color:gray">@Model.SessionGuid</p>
-	<p style="color:gray">@string.Join(' ', Model.Stats.Select(i => i.Text))</p>
+	<p style="color:gray">@Guid.NewGuid()</p>
+	<p style="color:gray" id="Stats"></p>
 }
