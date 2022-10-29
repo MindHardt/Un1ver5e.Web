@@ -1,0 +1,114 @@
+﻿@page
+@model Un1ver5e.ru.Pages.StatsGenModel
+@{
+}
+
+<script>
+var str = 10;
+var dex = 11;
+var con = 12;
+var int = 13;
+var wis = 14;
+var cha = 15;
+
+function incrementValue(elementId)
+{
+    var value = parseInt(document.getElementById(elementId).value, 10);
+    value = isNaN(value) ? 10 : value;
+    value++;
+    document.getElementById(elementId).value = value;
+}
+function decrementValue(elementId)
+{
+    var value = parseInt(document.getElementById(elementId).value, 10);
+    value = isNaN(value) ? 10 : value;
+    value--;
+    document.getElementById(elementId).value = value;
+}
+</script>
+
+<table border="0">
+    <tr>
+        <td>
+            Стат
+        </td>
+        <td>
+            Значение
+        </td>
+        <td>
+            -
+        </td>
+    </tr>
+    <tr>
+        <td>
+            💪СИЛ
+        </td>
+        <td>
+            <script type="text/javascript">
+                document.write(str)
+            </script>
+            <input type="button" onclick="decrementValue(str)" value="-" />
+            <input type="button" onclick="incrementValue(str)" value="+" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            🏃ЛВК
+        </td>
+        <td>
+            <script type="text/javascript">
+                document.write(dex)
+            </script>
+            <input type="button" onclick="decrementValue(dex)" value="-" />
+            <input type="button" onclick="incrementValue(dex)" value="+" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            🩸ВЫН
+        </td>
+        <td>
+            <script type="text/javascript">
+                document.write(con)
+            </script>
+            <input type="button" onclick="decrementValue(con)" value="-" />
+            <input type="button" onclick="incrementValue(con)" value="+" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            🧠ИНТ
+        </td>
+        <td>
+            <script type="text/javascript">
+                document.write(int)
+            </script>
+            <input type="button" onclick="decrementValue(int)" value="-" />
+            <input type="button" onclick="incrementValue(int)" value="+" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            🦉МДР
+        </td>
+        <td>
+            <script type="text/javascript">
+                document.write(wis)
+            </script>
+            <input type="button" onclick="decrementValue(wis)" value="-" />
+            <input type="button" onclick="incrementValue(wis)" value="+" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            👄ХАР
+        </td>
+        <td>
+            <script type="text/javascript">
+                document.write(cha)
+            </script>
+            <input type="button" onclick="decrementValue(cha)" value="-" />
+            <input type="button" onclick="incrementValue(cha)" value="+" />
+        </td>
+    </tr>
+    </table>

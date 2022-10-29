@@ -1,0 +1,26 @@
+﻿@page
+@model Un1ver5e.ru.Pages.FieldModel
+@{
+
+}
+<script>
+var scale = 100
+var setScale = function() {
+	scale = this
+}
+</script>
+
+<form method="post">
+	<label for="scale">Сменить карту</label>
+	<select name="scale" asp-for="SelectedMap" asp-items="FieldModel.Maps" onsubmit="">
+	</select>
+	<input type="submit" name="Применить" />
+</form>
+<br />
+<div id="container" style="position:relative;">
+    <div id="image" style="position:absolute; top:0; left:0;"></div>
+		<img src="./Files/map.jpg" width="@(Model.SelectedMap)%"/>
+    <div id="image" style="position:absolute; top:0; left:0;"></div>
+</div>
+
+
