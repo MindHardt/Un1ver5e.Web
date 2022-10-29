@@ -23,37 +23,36 @@
 	@Html.DropDownList("Alignment", Model.Alignments, @Model.Alignment ?? "Мировоззрение")
 
 	<p>Распределите характеристики</p>
-	<input type="submit" name="action" value="Автоматически">
 	<table border="0">
 		<tr>
 			<td>@Html.DisplayName("💪")</td>
 			<td>@Html.DropDownList("Strength", @Model.Stats, @Model.Strength?.ToString() ?? "СИЛ")</td>
-			<td><p id="StrLike"></p></td>
+			<td><div id="StrLike"></div></td>
 		</tr>
 		<tr>
 			<td>@Html.DisplayName("🏃‍")</td>
 			<td>@Html.DropDownList("Dexterity", @Model.Stats, @Model.Dexterity?.ToString() ?? "ЛВК")</td>
-			<td><p id="DexLike"></p></td>
+			<td><div id="DexLike"></div></td>
 		</tr>
 		<tr>
 			<td>@Html.DisplayName("🩸")</td>
 			<td>@Html.DropDownList("Constitution", @Model.Stats, @Model.Constitution?.ToString() ?? "ВЫН")</td>
-			<td><p id="ConLike"></p></td>
+			<td><div id="ConLike"></div></td>
 		</tr>
 		<tr>
 			<td>@Html.DisplayName("🧠")</td>
 			<td>@Html.DropDownList("Intelligence", @Model.Stats, @Model.Intelligence?.ToString() ?? "ИНТ")</td>
-			<td><p id="IntLike"></p></td>
+			<td><div id="IntLike"></div></td>
 		</tr>
 		<tr>
 			<td>@Html.DisplayName("🦉")</td>
 			<td>@Html.DropDownList("Wisdom", @Model.Stats, @Model.Wisdom?.ToString() ?? "МДР")</td>
-			<td><p id="WisLike"></p></td>
+			<td><div id="WisLike"></div></td>
 		</tr>
 		<tr>
 			<td>@Html.DisplayName("👄")</td>
 			<td>@Html.DropDownList("Charisma", @Model.Stats, @Model.Charisma?.ToString() ?? "ХАР")</td>
-			<td><p id="ChaLike"></p></td>
+			<td><div id="ChaLike"></div></td>
 		</tr>
 
 	</table>

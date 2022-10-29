@@ -31,53 +31,20 @@ namespace Un1ver5e.ru.Pages
         [BindProperty]
         public int? Charisma { get; set; }
 
-        public Guid SessionGuid { get; set; } = Guid.NewGuid();
+        public Guid SessionGuid => Guid.NewGuid();
 
         public IActionResult OnPost()
         {
-            SessionGuid = Guid.NewGuid();
             if (Request.Form["action"] == "🔄")
             {
                 return RedirectToPage();
             }
-            if (Request.Form["action"] == "Автоматически")
-            {
-                AutoGenerateStats();
-                return RedirectToPage();
-            }    
 
-            StringBuilder svg = new(_rawSvg);
-
-            svg.Replace("%NAME%", Name);
-            svg.Replace("%RACE%", Race);
-            svg.Replace("%CLASS%", Class);
-            svg.Replace("%GENDER%", Gender);
-            svg.Replace("%ALIGNMENT%", Alignment);
-            //💪
-            svg.Replace("%STR%", Strength?.ToString() ?? "10");
-            svg.Replace("%STRM%", FormatMod(Strength ?? 10));
-            //🏃‍
-            svg.Replace("%DEX%", Dexterity?.ToString() ?? "10");
-            svg.Replace("%DEXM%", FormatMod(Dexterity ?? 10));
-            //🩸
-            svg.Replace("%CON%", Constitution?.ToString() ?? "10");
-            svg.Replace("%CONM%", FormatMod(Constitution ?? 10));
-            //🧠
-            svg.Replace("%INT%", Intelligence?.ToString() ?? "10");
-            svg.Replace("%INTM%", FormatMod(Intelligence ?? 10));
-            //🦉
-            svg.Replace("%WIS%", Wisdom?.ToString() ?? "10");
-            svg.Replace("%WISM%", FormatMod(Wisdom ?? 10));
-            //👄
-            svg.Replace("%CHA%", Charisma?.ToString() ?? "10");
-            svg.Replace("%CHAM%", FormatMod(Charisma ?? 10));
-
-            Stream result = new MemoryStream(Encoding.UTF8.GetBytes(svg.ToString()));
+            Stream result = PrepareSvgFile();
 
             return Request.Form["action"] == "Сохранить" ?
                 File(result, "application/octet-stream", $"{Name}.svg") :   //Download
                 File(result, "image/svg+xml");                              //Display
-            
         }
 
         public SelectList Races => new(_races);
@@ -155,59 +122,36 @@ namespace Un1ver5e.ru.Pages
             $"+{GetMod(stat)}" :
             GetMod(stat).ToString();
         
-        private void AutoGenerateStats()
+        private Stream PrepareSvgFile()
         {
-            int?[] statsPriority = GetStatsPriorityArray();
+            StringBuilder svg = new(_rawSvg);
 
-            for (int i = 0; i < statsPriority.Length; i++)
-            {
-                statsPriority[i] = _currentStats[i];
-            }
+            svg.Replace("%NAME%", Name);
+            svg.Replace("%RACE%", Race);
+            svg.Replace("%CLASS%", Class);
+            svg.Replace("%GENDER%", Gender);
+            svg.Replace("%ALIGNMENT%", Alignment);
+            //💪
+            svg.Replace("%STR%", Strength?.ToString() ?? "10");
+            svg.Replace("%STRM%", FormatMod(Strength ?? 10));
+            //🏃‍
+            svg.Replace("%DEX%", Dexterity?.ToString() ?? "10");
+            svg.Replace("%DEXM%", FormatMod(Dexterity ?? 10));
+            //🩸
+            svg.Replace("%CON%", Constitution?.ToString() ?? "10");
+            svg.Replace("%CONM%", FormatMod(Constitution ?? 10));
+            //🧠
+            svg.Replace("%INT%", Intelligence?.ToString() ?? "10");
+            svg.Replace("%INTM%", FormatMod(Intelligence ?? 10));
+            //🦉
+            svg.Replace("%WIS%", Wisdom?.ToString() ?? "10");
+            svg.Replace("%WISM%", FormatMod(Wisdom ?? 10));
+            //👄
+            svg.Replace("%CHA%", Charisma?.ToString() ?? "10");
+            svg.Replace("%CHAM%", FormatMod(Charisma ?? 10));
+
+            return new MemoryStream(Encoding.UTF8.GetBytes(svg.ToString()));
         }
-
-        private int?[] GetStatsPriorityArray() => Class switch
-        {
-            "🎓Алхимик"
-            => new int?[] { Intelligence, Dexterity, Wisdom, Constitution, Strength, Charisma },
-
-            "🪕Бард"
-            => new int?[] { Charisma, Dexterity, Wisdom, Intelligence, Strength, Constitution },
-
-            "😡Варвар"
-            => new int?[] { Strength, Constitution, Dexterity, Wisdom, Charisma, Intelligence },
-
-            "⚔️Воин"
-            => new int?[] { Strength, Constitution, Dexterity, Intelligence, Wisdom, Charisma },
-
-            "📚Волшебник"
-            => new int?[] { Intelligence, Dexterity, Constitution, Wisdom, Charisma, Strength },
-
-            "🍀Друид"
-            => new int?[] { Wisdom, Dexterity, Constitution, Intelligence, Charisma, Strength },
-
-            "📜Жрец"
-            => new int?[] { Wisdom, Charisma, Constitution, Strength, Dexterity, Intelligence },
-
-            "☄️Кинетик"
-            => new int?[] { Dexterity, Constitution, Wisdom, Strength, Intelligence, Charisma },
-
-            //"👹Колдун" 
-            //=> new int?[] { },
-
-            "🧘Монах"
-            => new int?[] { Dexterity, Strength, Wisdom, Constitution, Charisma, Intelligence },
-
-            "🛡Паладин"
-            => new int?[] { Charisma, Strength, Constitution, Wisdom, Dexterity, Intelligence },
-
-            "🗡Плут"
-            => new int?[] { Dexterity, Wisdom, Intelligence, Strength, Constitution, Charisma },
-
-            "🦅Рейнджер"
-            => new int?[] { Dexterity, Wisdom, Strength, Constitution, Intelligence, Charisma },
-
-            _ => throw new ArgumentNullException("Выберите класс чтобы распределить статы.")
-        };
 
         private readonly static string _rawSvg = System.IO.File.ReadAllText("wwwroot/Files/RawChar.svg");
     }

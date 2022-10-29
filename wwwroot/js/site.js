@@ -3,22 +3,25 @@
 
 // Write your JavaScript code.
 
-const allStats = [str, dex, con, int, wis, cha];
-const str = "StrLike";
-const dex = "DexLike";
-const con = "ConLike";
-const int = "IntLike";
-const wis = "WisLike";
-const cha = "ChaLike";
+var str = "StrLike";
+var dex = "DexLike";
+var con = "ConLike";
+var int = "IntLike";
+var wis = "WisLike";
+var cha = "ChaLike";
 
 function showBestStats() {
     let selectedClass = document.getElementById("Class").value;
     let bestStats = getBestStatsIds(selectedClass);
-    alert("test");
+    
 
-    for (let i = 0; i < allStats.length; i++) {
-        document.getElementById(allStats[i]).innerText = "";
-    }
+    document.getElementById(str).innerText = "";
+    document.getElementById(dex).innerText = "";
+    document.getElementById(con).innerText = "";
+    document.getElementById(int).innerText = "";
+    document.getElementById(wis).innerText = "";
+    document.getElementById(cha).innerText = "";
+
     for (let i = 0; i < bestStats.length; i++) {
         document.getElementById(bestStats[i]).innerText = "👍";
     }
