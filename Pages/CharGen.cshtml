@@ -5,11 +5,8 @@
 }
 
 <script type="text/javascript">
-var stats = [15, 14, 13, 12, 10, 8];
-
-function recalculateStats() {
-    stats = getFineStats();
-    alert(stats);
+window.onload = function() {
+	recalculateStats();
 }
 </script>
 
@@ -31,7 +28,6 @@ function recalculateStats() {
 	@Html.DropDownList("Alignment", Model.Alignments, @Model.Alignment ?? "Мировоззрение")<br />
 
 	<label for="StatsTable">Распределите характеристики : <script>stats</script></label>
-	<button onclick="recalculateStats()" type="button">🔁</button>
 	<table border="0" id="StatsTable">
 		<tr>
 			<td>💪</td>
@@ -68,7 +64,10 @@ function recalculateStats() {
 
 	<input type="submit" name="action" value="👀">
 	<input type="submit" name="action" value="💾">
+	<br />
+	<span style="color:gray">@Guid.NewGuid()</span>
+	<br />
+	<button onclick="recalculateStats()" type="button">🔁</button>
+	<span style="color:gray" id="Stats"></span>
 	
-	<p style="color:gray">@Guid.NewGuid()</p>
-	<p style="color:gray" id="Stats"></p>
 }

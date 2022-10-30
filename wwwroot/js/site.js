@@ -31,6 +31,14 @@ function showBestStats() {
 }
 
 /**
+ * Generates a new set of stats and replaces "Stats" Html element with new values.
+ * */
+function recalculateStats() {
+    stats = getFineStats();
+    document.getElementById("Stats").innerText = stats.toString();
+}
+
+/**
  * Gets ids of Html div's that correspond to preffered stats for specified class.
  * @param {string} className The class that is being checked.
  */
@@ -72,18 +80,14 @@ function getBestStatsIds(className) {
 function getFineStats() {
     while (true) {
         let rawStats = getRawStats();
-        rawStats.sort();
-        rawStats.reverse();
 
-        if (rawStats[5] < 14) continue;
+        if (Math.max(...rawStats) < 14) continue;
 
-        let modSum = 0;
-        for (let i = 0; i < 6; i++) {
-            modSum += getMod(rawStats[i]);
-        }
+        let modSum = rawStats.reduce((s, e) => s + getMod(e), 0)
 
-        if (modSum < 3) continue;
-        return rawStats;
+        if (modSum < 4) continue;
+
+        return rawStats.sort((a, b) => a - b).reverse();
     }
 }
 
@@ -99,8 +103,11 @@ function getRawStats() {
  * */
 function getStat() {
     let throws = [getd6(), getd6(), getd6(), getd6()];
-    throws.sort();
-    return throws[1] + throws[2] + throws[3];
+    
+    let sum = throws.reduce((s, e) => s + e, 0);
+    let min = Math.min(...throws);
+
+    return sum - min;
 }
 
 /**
@@ -116,5 +123,5 @@ function getd6() {
  * A stat. It is expected to be in range 1..
  */
 function getMod(stat) {
-    return stat / 2 - 5;
+    return Math.floor(stat / 2 - 5);
 }
