@@ -33,33 +33,39 @@ window.onload = function() {
 	<table border="0" id="StatsTable">
 		<tr>
 			<td>💪</td>
-			<td>@Html.DropDownList("Str", Enumerable.Empty<SelectListItem>() ,@Model.Str?.ToString() ?? "---")</td>
+			<td><select id="Str" name="Str" ><option selected disabled hidden>---</option></select></td>
 			<td><div id="StrLike"></div></td>
+			<td><div id="StrRace"></div></td>
 		</tr>
 		<tr>
 			<td>🏃‍</td>
-			<td>@Html.DropDownList("Dex", Enumerable.Empty<SelectListItem>(), @Model.Dex?.ToString() ?? "---")</td>
+			<td><select id="Dex" name="Dex" ><option selected disabled hidden>---</option></select></td>
 			<td><div id="DexLike"></div></td>
+			<td><div id="DexRace"></div></td>
 		</tr>
 		<tr>
 			<td>🩸</td>
-			<td>@Html.DropDownList("Con", Enumerable.Empty<SelectListItem>(), @Model.Con?.ToString() ?? "---")</td>
+			<td><select id="Con" name="Con" ><option selected disabled hidden>---</option></select></td>
 			<td><div id="ConLike"></div></td>
+			<td><div id="ConRace"></div></td>
 		</tr>
 		<tr>
 			<td>🧠</td>
-			<td>@Html.DropDownList("Int", Enumerable.Empty<SelectListItem>(), @Model.Int?.ToString() ?? "---")</td>
+			<td><select id="Int" name="Int" ><option selected disabled hidden>---</option></select></td>
 			<td><div id="IntLike"></div></td>
+			<td><div id="IntRace"></div></td>
 		</tr>
 		<tr>
 			<td>🦉</td>
-			<td>@Html.DropDownList("Wis", Enumerable.Empty<SelectListItem>(), @Model.Wis?.ToString() ?? "---")</td>
+			<td><select id="Wis" name="Wis" ><option selected disabled hidden>---</option></select></td>
 			<td><div id="WisLike"></div></td>
+			<td><div id="WisRace"></div></td>
 		</tr>
 		<tr>
 			<td>👄</td>
-			<td>@Html.DropDownList("Cha", Enumerable.Empty<SelectListItem>(), @Model.Cha?.ToString() ?? "---")</td>
+			<td><select id="Cha" name="Cha" ><option selected disabled hidden>---</option></select></td>
 			<td><div id="ChaLike"></div></td>
+			<td><div id="ChaRace"></div></td>
 		</tr>
 
 	</table>

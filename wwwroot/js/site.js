@@ -31,39 +31,19 @@ function showBestStats() {
 }
 
 /**
- * Sets options for select specified by id.
- * @param {string} id
- * @param {string[]} options
- */
-function replaceSelectOptions(id, options) {
-    let select = document.getElementById(id);
-
-    select.innerHTML = "";
-    for (let i = 0; i < options.length; i++) {
-        let option = document.createElement('option');
-        let value = options[i];
-
-        option.value = value;
-        option.innerHTML = value;
-        select.appendChild(option);
-    }
-    select.value = "---";
-}
-
-/**
  * Generates a new set of stats and replaces "Stats" Html 
  * element and all stat's selects options with new values.
  * */
 function resetStats() {
     let stats = getFineStats();
-    setStatSelects(stats);
+    setAllStatsSelects(stats);
 }
 
 /**
  * Sets all stat's selets options to a provided value.
  * @param {string[]} stats
  */
-function setStatSelects(stats) {
+function setAllStatsSelects(stats) {
     document.getElementById("Stats").innerText = stats.toString();
 
     replaceSelectOptions("Str", stats)
@@ -72,6 +52,34 @@ function setStatSelects(stats) {
     replaceSelectOptions("Int", stats)
     replaceSelectOptions("Wis", stats)
     replaceSelectOptions("Cha", stats)
+}
+
+/**
+ * Sets options for select specified by id.
+ * @param {string} id
+ * @param {string[]} options
+ */
+function replaceSelectOptions(id, options) {
+    let select = document.getElementById(id);
+
+    select.innerHTML = "";
+
+    let dummyOption = document.createElement('option');
+    dummyOption.disabled = true;
+    dummyOption.selected = true;
+    dummyOption.hidden = true;
+    dummyOption.value = "";
+    dummyOption.innerHTML = "---";
+    select.appendChild(dummyOption);
+
+    for (let i = 0; i < options.length; i++) {
+        let option = document.createElement('option');
+        let value = options[i];
+
+        option.value = value;
+        option.innerHTML = value;
+        select.appendChild(option);
+    }
 }
 
 /**
