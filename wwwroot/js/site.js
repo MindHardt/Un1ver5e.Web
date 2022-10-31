@@ -31,11 +31,47 @@ function showBestStats() {
 }
 
 /**
- * Generates a new set of stats and replaces "Stats" Html element with new values.
+ * Sets options for select specified by id.
+ * @param {string} id
+ * @param {string[]} options
+ */
+function replaceSelectOptions(id, options) {
+    let select = document.getElementById(id);
+
+    select.innerHTML = "";
+    for (let i = 0; i < options.length; i++) {
+        let option = document.createElement('option');
+        let value = options[i];
+
+        option.value = value;
+        option.innerHTML = value;
+        select.appendChild(option);
+    }
+    select.value = "---";
+}
+
+/**
+ * Generates a new set of stats and replaces "Stats" Html 
+ * element and all stat's selects options with new values.
  * */
-function recalculateStats() {
-    stats = getFineStats();
+function resetStats() {
+    let stats = getFineStats();
+    setStatSelects(stats);
+}
+
+/**
+ * Sets all stat's selets options to a provided value.
+ * @param {string[]} stats
+ */
+function setStatSelects(stats) {
     document.getElementById("Stats").innerText = stats.toString();
+
+    replaceSelectOptions("Str", stats)
+    replaceSelectOptions("Dex", stats)
+    replaceSelectOptions("Con", stats)
+    replaceSelectOptions("Int", stats)
+    replaceSelectOptions("Wis", stats)
+    replaceSelectOptions("Cha", stats)
 }
 
 /**

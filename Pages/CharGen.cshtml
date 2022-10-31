@@ -6,7 +6,9 @@
 
 <script type="text/javascript">
 window.onload = function() {
-	recalculateStats();
+    if (document.getElementById("Stats").innerHTML = "") {
+        resetStats();
+	}
 }
 </script>
 
@@ -16,47 +18,47 @@ window.onload = function() {
 	@Html.TextBox("Name")<br />
 
 	<label for="Race">Выберите расу</label><br />
-	@Html.DropDownList("Race", Model.Races, @Model.Race ?? "Раса")<br />
+	@Html.DropDownList("Race", Model.Races, @Model.Race ?? "---")<br />
 
 	<label for="Class">Выберите класс</label><br />
-	@Html.DropDownList("Class", Model.Classes, @Model.Class ?? "Класс", new { onchange = "showBestStats()" })<br />
+	@Html.DropDownList("Class", Model.Classes, @Model.Class ?? "---", new { onchange = "showBestStats()" })<br />
 
 	<label for="Gender">Выберите пол персонажа</label><br />
-	@Html.DropDownList("Gender", Model.Genders, @Model.Gender ?? "Пол")<br />
+	@Html.DropDownList("Gender", Model.Genders, @Model.Gender ?? "---")<br />
 
 	<label for="Alignment">Выберите мировоззрение</label><br />
-	@Html.DropDownList("Alignment", Model.Alignments, @Model.Alignment ?? "Мировоззрение")<br />
+	@Html.DropDownList("Alignment", Model.Alignments, @Model.Alignment ?? "---")<br />
 
 	<label for="StatsTable">Распределите характеристики : <script>stats</script></label>
 	<table border="0" id="StatsTable">
 		<tr>
 			<td>💪</td>
-			<td>@Html.DropDownList("Strength", Enumerable.Empty<SelectListItem>() ,@Model.Strength?.ToString() ?? "СИЛ")</td>
+			<td>@Html.DropDownList("Str", Enumerable.Empty<SelectListItem>() ,@Model.Str?.ToString() ?? "---")</td>
 			<td><div id="StrLike"></div></td>
 		</tr>
 		<tr>
 			<td>🏃‍</td>
-			<td>@Html.DropDownList("Dexterity", Enumerable.Empty<SelectListItem>(), @Model.Dexterity?.ToString() ?? "ЛВК")</td>
+			<td>@Html.DropDownList("Dex", Enumerable.Empty<SelectListItem>(), @Model.Dex?.ToString() ?? "---")</td>
 			<td><div id="DexLike"></div></td>
 		</tr>
 		<tr>
 			<td>🩸</td>
-			<td>@Html.DropDownList("Constitution", Enumerable.Empty<SelectListItem>(), @Model.Constitution?.ToString() ?? "ВЫН")</td>
+			<td>@Html.DropDownList("Con", Enumerable.Empty<SelectListItem>(), @Model.Con?.ToString() ?? "---")</td>
 			<td><div id="ConLike"></div></td>
 		</tr>
 		<tr>
 			<td>🧠</td>
-			<td>@Html.DropDownList("Intelligence", Enumerable.Empty<SelectListItem>(), @Model.Intelligence?.ToString() ?? "ИНТ")</td>
+			<td>@Html.DropDownList("Int", Enumerable.Empty<SelectListItem>(), @Model.Int?.ToString() ?? "---")</td>
 			<td><div id="IntLike"></div></td>
 		</tr>
 		<tr>
 			<td>🦉</td>
-			<td>@Html.DropDownList("Wisdom", Enumerable.Empty<SelectListItem>(), @Model.Wisdom?.ToString() ?? "МДР")</td>
+			<td>@Html.DropDownList("Wis", Enumerable.Empty<SelectListItem>(), @Model.Wis?.ToString() ?? "---")</td>
 			<td><div id="WisLike"></div></td>
 		</tr>
 		<tr>
 			<td>👄</td>
-			<td>@Html.DropDownList("Charisma", Enumerable.Empty<SelectListItem>(), @Model.Charisma?.ToString() ?? "ХАР")</td>
+			<td>@Html.DropDownList("Cha", Enumerable.Empty<SelectListItem>(), @Model.Cha?.ToString() ?? "---")</td>
 			<td><div id="ChaLike"></div></td>
 		</tr>
 
@@ -67,7 +69,7 @@ window.onload = function() {
 	<br />
 	<span style="color:gray">@Guid.NewGuid()</span>
 	<br />
-	<button onclick="recalculateStats()" type="button">🔁</button>
+	<button onclick="resetStats()" type="button">🔁</button>
 	<span style="color:gray" id="Stats"></span>
 	
 }

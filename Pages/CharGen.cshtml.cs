@@ -19,17 +19,17 @@ namespace Un1ver5e.ru.Pages
         public string? Alignment { get; set; }
 
         [BindProperty]
-        public int? Strength { get; set; }
+        public int? Str { get; set; }
         [BindProperty]
-        public int? Dexterity { get; set; }
+        public int? Dex { get; set; }
         [BindProperty]
-        public int? Constitution { get; set; }
+        public int? Con { get; set; }
         [BindProperty]
-        public int? Intelligence { get; set; }
+        public int? Int { get; set; }
         [BindProperty]
-        public int? Wisdom { get; set; }
+        public int? Wis { get; set; }
         [BindProperty]
-        public int? Charisma { get; set; }
+        public int? Cha { get; set; }
 
         public IActionResult OnPost()
         {
@@ -107,23 +107,23 @@ namespace Un1ver5e.ru.Pages
             svg.Replace("%GENDER%", Gender);
             svg.Replace("%ALIGNMENT%", Alignment);
             //💪
-            svg.Replace("%STR%", Strength?.ToString() ?? "10");
-            svg.Replace("%STRM%", FormatMod(Strength ?? 10));
+            svg.Replace("%STR%", Str?.ToString() ?? "10");
+            svg.Replace("%STRM%", FormatMod(Str ?? 10));
             //🏃‍
-            svg.Replace("%DEX%", Dexterity?.ToString() ?? "10");
-            svg.Replace("%DEXM%", FormatMod(Dexterity ?? 10));
+            svg.Replace("%DEX%", Dex?.ToString() ?? "10");
+            svg.Replace("%DEXM%", FormatMod(Dex ?? 10));
             //🩸
-            svg.Replace("%CON%", Constitution?.ToString() ?? "10");
-            svg.Replace("%CONM%", FormatMod(Constitution ?? 10));
+            svg.Replace("%CON%", Con?.ToString() ?? "10");
+            svg.Replace("%CONM%", FormatMod(Con ?? 10));
             //🧠
-            svg.Replace("%INT%", Intelligence?.ToString() ?? "10");
-            svg.Replace("%INTM%", FormatMod(Intelligence ?? 10));
+            svg.Replace("%INT%", Int?.ToString() ?? "10");
+            svg.Replace("%INTM%", FormatMod(Int ?? 10));
             //🦉
-            svg.Replace("%WIS%", Wisdom?.ToString() ?? "10");
-            svg.Replace("%WISM%", FormatMod(Wisdom ?? 10));
+            svg.Replace("%WIS%", Wis?.ToString() ?? "10");
+            svg.Replace("%WISM%", FormatMod(Wis ?? 10));
             //👄
-            svg.Replace("%CHA%", Charisma?.ToString() ?? "10");
-            svg.Replace("%CHAM%", FormatMod(Charisma ?? 10));
+            svg.Replace("%CHA%", Cha?.ToString() ?? "10");
+            svg.Replace("%CHAM%", FormatMod(Cha ?? 10));
 
             return new MemoryStream(Encoding.UTF8.GetBytes(svg.ToString()));
         }
