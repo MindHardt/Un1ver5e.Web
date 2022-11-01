@@ -47,6 +47,17 @@ namespace Un1ver5e.ru.Pages
             "🦎Серпент"
         };
 
+        public SelectList HumanRaceBonuses => new(_humanRaceBonuses, "Value", "Text");
+        private readonly static SelectListItem[] _humanRaceBonuses =
+        {
+            new("💪", "StrRace"),
+            new("🏃‍", "DexRace"),
+            new("🩸", "ConRace"),
+            new("🧠", "IntRace"),
+            new("🦉", "WisRace"),
+            new("👄", "ChaRace"),
+        };
+
         public SelectList Classes => new(_classes);
         private readonly static string[] _classes =
         {

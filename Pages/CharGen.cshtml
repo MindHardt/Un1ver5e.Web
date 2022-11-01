@@ -17,11 +17,19 @@ window.onload = function() {
 	<br /><br />
 
 	<label for="Race">Выберите расу</label><br />
-	@Html.DropDownList("Race", Model.Races, @Model.Race ?? "---")
+	@Html.DropDownList("Race", Model.Races, @Model.Race ?? "---", new { onchange = "showCurrentRaceBonuses()" })
+	<select id="HumanRaceBonusSelect" hidden onchange="processHumanRaceBonus()">
+		<option value="StrRace">💪</option>
+		<option value="DexRace">🏃‍</option>
+		<option value="ConRace">🩸</option>
+		<option value="IntRace">🧠</option>
+		<option value="WisRace">🦉</option>
+		<option value="ChaRace">👄</option>
+	</select>
 	<br /><br />
 
 	<label for="Class">Выберите класс</label><br />
-	@Html.DropDownList("Class", Model.Classes, @Model.Class ?? "---", new { onchange = "showBestStats()" })
+	@Html.DropDownList("Class", Model.Classes, @Model.Class ?? "---", new { onchange = "showCurrentClassPreferredStats()" })
 	<br /><br />
 
 	<label for="Gender">Выберите пол персонажа</label><br />
@@ -32,7 +40,7 @@ window.onload = function() {
 	@Html.DropDownList("Alignment", Model.Alignments, @Model.Alignment ?? "---")
 	<br /><br />
 
-	<label for="StatsTable">Распределите характеристики : <script>stats</script></label><br />
+	<label for="StatsTable">Распределите характеристики :</label><br />
 	<button onclick="resetStats()" type="button">Новые характеристики 🔁</button><br />
 	<span style="color:gray" id="Stats"></span>
 	<table border="0" id="StatsTable">
@@ -45,6 +53,7 @@ window.onload = function() {
 			</td>
 			<td><div id="StrLike"></div></td>
 			<td><div id="StrRace"></div></td>
+			<td><details><summary>СИЛ</summary>Сила. Мощь рук, ног и других мышц тела. Отвечает за урон в ближнем бою, плавание и лазание.</details></td>
 		</tr>
 		<tr>
 			<td>🏃‍</td>
@@ -55,6 +64,7 @@ window.onload = function() {
 			</td>
 			<td><div id="DexLike"></div></td>
 			<td><div id="DexRace"></div></td>
+			<td><details><summary>ЛВК</summary>Ловкость. Подвижность и мелкая моторика. Отвечает за стрельбу, увороты, акробатику и скрытность.</details></td>
 		</tr>
 		<tr>
 			<td>🩸</td>
@@ -65,6 +75,7 @@ window.onload = function() {
 			</td>
 			<td><div id="ConLike"></div></td>
 			<td><div id="ConRace"></div></td>
+			<td><details><summary>ВЫН</summary>Выносливость. Крепость тела и устойчивость ко вреду. Отвечает за здоровье и сопротивление эффектам.</details></td>
 		</tr>
 		<tr>
 			<td>🧠</td>
@@ -75,6 +86,7 @@ window.onload = function() {
 			</td>
 			<td><div id="IntLike"></div></td>
 			<td><div id="IntRace"></div></td>
+			<td><details><summary>ИНТ</summary>Интеллект. Знания и смекалка. Отвечает за все типы наук, количество навыков и концентрацию.</details></td>
 		</tr>
 		<tr>
 			<td>🦉</td>
@@ -85,6 +97,7 @@ window.onload = function() {
 			</td>
 			<td><div id="WisLike"></div></td>
 			<td><div id="WisRace"></div></td>
+			<td><details><summary>МДР</summary>Мудрость. Жизненный опыт и чуткость. Отвечает за внимательность, силу воли и бытовые умения.</details></td>
 		</tr>
 		<tr>
 			<td>👄</td>
@@ -95,6 +108,7 @@ window.onload = function() {
 			</td>
 			<td><div id="ChaLike"></div></td>
 			<td><div id="ChaRace"></div></td>
+			<td><details><summary>ХАР</summary>Харизма. Внутренняя и внешняя красота. Отвечает за привлекательность и умение договариваться.</details></td>
 		</tr>
 
 	</table>
