@@ -1,0 +1,22 @@
+﻿@page
+@model Un1ver5e.ru.Pages.WorldMapModel
+@{
+    ViewData["Title"] = "Карты";
+}
+<script>
+function changeMap() {
+    let newMap = document.getElementById('MapSelect').value;
+
+    document.getElementById('Map').src = newMap;
+}
+</script>
+
+
+<div class="map">
+    <select id="MapSelect" onchange="changeMap()">
+        <option value="./Files/map.jpg">🌎Физическая</option>
+        <option value="./Files/pol.jpg">🗺Политическая</option>
+    </select>
+    <br /><br /><br />
+    <img id="Map" src="./Files/map.jpg" style="width: 100%"/>
+</div>

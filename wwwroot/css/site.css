@@ -16,3 +16,8 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.map {
+    text-align: center;
+    font-size: 20px;
+}

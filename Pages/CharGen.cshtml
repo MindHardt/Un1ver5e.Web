@@ -4,78 +4,102 @@
 	ViewData["Title"] = "Генератор";
 }
 
-<script type="text/javascript">
+<script>
 window.onload = function() {
-    if (document.getElementById("Stats").innerHTML = "") {
-        resetStats();
-	}
-}
+    resetStats();
+}	
 </script>
 
 @using(Html.BeginForm(FormMethod.Post))
 {
 	<label for="Name">Введите имя персонажа</label><br />
-	@Html.TextBox("Name")<br />
+	@Html.TextBox("Name")
+	<br /><br />
 
 	<label for="Race">Выберите расу</label><br />
-	@Html.DropDownList("Race", Model.Races, @Model.Race ?? "---")<br />
+	@Html.DropDownList("Race", Model.Races, @Model.Race ?? "---")
+	<br /><br />
 
 	<label for="Class">Выберите класс</label><br />
-	@Html.DropDownList("Class", Model.Classes, @Model.Class ?? "---", new { onchange = "showBestStats()" })<br />
+	@Html.DropDownList("Class", Model.Classes, @Model.Class ?? "---", new { onchange = "showBestStats()" })
+	<br /><br />
 
 	<label for="Gender">Выберите пол персонажа</label><br />
-	@Html.DropDownList("Gender", Model.Genders, @Model.Gender ?? "---")<br />
+	@Html.DropDownList("Gender", Model.Genders, @Model.Gender ?? "---")
+	<br /><br />
 
 	<label for="Alignment">Выберите мировоззрение</label><br />
-	@Html.DropDownList("Alignment", Model.Alignments, @Model.Alignment ?? "---")<br />
+	@Html.DropDownList("Alignment", Model.Alignments, @Model.Alignment ?? "---")
+	<br /><br />
 
-	<label for="StatsTable">Распределите характеристики : <script>stats</script></label>
+	<label for="StatsTable">Распределите характеристики : <script>stats</script></label><br />
+	<button onclick="resetStats()" type="button">Новые характеристики 🔁</button><br />
+	<span style="color:gray" id="Stats"></span>
 	<table border="0" id="StatsTable">
 		<tr>
 			<td>💪</td>
-			<td><select id="Str" name="Str" ><option selected disabled hidden>---</option></select></td>
+			<td>
+				<select id="Str" name="Str" onchange="checkStatsChoiceValid()">
+					<option selected disabled hidden value="---">---</option>
+				</select>
+			</td>
 			<td><div id="StrLike"></div></td>
 			<td><div id="StrRace"></div></td>
 		</tr>
 		<tr>
 			<td>🏃‍</td>
-			<td><select id="Dex" name="Dex" ><option selected disabled hidden>---</option></select></td>
+			<td>
+				<select id="Dex" name="Dex" onchange="checkStatsChoiceValid()">
+					<option selected disabled hidden value="---">---</option>
+				</select>
+			</td>
 			<td><div id="DexLike"></div></td>
 			<td><div id="DexRace"></div></td>
 		</tr>
 		<tr>
 			<td>🩸</td>
-			<td><select id="Con" name="Con" ><option selected disabled hidden>---</option></select></td>
+			<td>
+				<select id="Con" name="Con" onchange="checkStatsChoiceValid()">
+					<option selected disabled hidden value="---">---</option>
+				</select>
+			</td>
 			<td><div id="ConLike"></div></td>
 			<td><div id="ConRace"></div></td>
 		</tr>
 		<tr>
 			<td>🧠</td>
-			<td><select id="Int" name="Int" ><option selected disabled hidden>---</option></select></td>
+			<td>
+				<select id="Int" name="Int" onchange="checkStatsChoiceValid()">
+					<option selected disabled hidden value="---">---</option>
+				</select>
+			</td>
 			<td><div id="IntLike"></div></td>
 			<td><div id="IntRace"></div></td>
 		</tr>
 		<tr>
 			<td>🦉</td>
-			<td><select id="Wis" name="Wis" ><option selected disabled hidden>---</option></select></td>
+			<td>
+				<select id="Wis" name="Wis" onchange="checkStatsChoiceValid()">
+					<option selected disabled hidden value="---">---</option>
+				</select>
+			</td>
 			<td><div id="WisLike"></div></td>
 			<td><div id="WisRace"></div></td>
 		</tr>
 		<tr>
 			<td>👄</td>
-			<td><select id="Cha" name="Cha" ><option selected disabled hidden>---</option></select></td>
+			<td>
+				<select id="Cha" name="Cha" onchange="checkStatsChoiceValid()">
+					<option selected disabled hidden value="---">---</option>
+				</select>
+			</td>
 			<td><div id="ChaLike"></div></td>
 			<td><div id="ChaRace"></div></td>
 		</tr>
 
 	</table>
 
-	<input type="submit" name="action" value="👀">
-	<input type="submit" name="action" value="💾">
-	<br />
-	<span style="color:gray">@Guid.NewGuid()</span>
-	<br />
-	<button onclick="resetStats()" type="button">🔁</button>
-	<span style="color:gray" id="Stats"></span>
+	<input id="FormSubmit" type="submit" name="action" value="✅ Сохранить" disabled>
+	<span id="UniqueWarn" style="color:red">Значения статов повторяются!</span>
 	
 }

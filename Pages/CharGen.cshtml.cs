@@ -33,13 +33,7 @@ namespace Un1ver5e.ru.Pages
 
         public IActionResult OnPost()
         {
-            return Request.Form["action"].ToString() switch
-            {
-                "💾" => File(PrepareSvgFile(), "application/octet-stream", $"{Name ?? "template"}.svg"),
-                "👀" => File(PrepareSvgFile(), "image/svg+xml"),
-
-                _ => RedirectToPage()
-            };
+            return File(PrepareSvgFile(), "application/octet-stream", $"{Name ?? "template"}.svg");
         }
 
         public SelectList Races => new(_races);
@@ -107,23 +101,29 @@ namespace Un1ver5e.ru.Pages
             svg.Replace("%GENDER%", Gender);
             svg.Replace("%ALIGNMENT%", Alignment);
             //💪
-            svg.Replace("%STR%", Str?.ToString() ?? "10");
-            svg.Replace("%STRM%", FormatMod(Str ?? 10));
+            int str = Str ?? 10;
+            svg.Replace("%STR%", str.ToString());
+            svg.Replace("%STRM%", FormatMod(str));
             //🏃‍
-            svg.Replace("%DEX%", Dex?.ToString() ?? "10");
-            svg.Replace("%DEXM%", FormatMod(Dex ?? 10));
+            int dex = Dex ?? 10;
+            svg.Replace("%DEX%", dex.ToString());
+            svg.Replace("%DEXM%", FormatMod(dex));
             //🩸
-            svg.Replace("%CON%", Con?.ToString() ?? "10");
-            svg.Replace("%CONM%", FormatMod(Con ?? 10));
+            int @con = Con ?? 10;
+            svg.Replace("%CON%", con.ToString());
+            svg.Replace("%CONM%", FormatMod(con));
             //🧠
-            svg.Replace("%INT%", Int?.ToString() ?? "10");
-            svg.Replace("%INTM%", FormatMod(Int ?? 10));
+            int @int = Int ?? 10;
+            svg.Replace("%INT%", @int.ToString());
+            svg.Replace("%INTM%", FormatMod(@int));
             //🦉
-            svg.Replace("%WIS%", Wis?.ToString() ?? "10");
-            svg.Replace("%WISM%", FormatMod(Wis ?? 10));
+            int wis = Wis ?? 10;
+            svg.Replace("%WIS%", wis.ToString());
+            svg.Replace("%WISM%", FormatMod(wis));
             //👄
-            svg.Replace("%CHA%", Cha?.ToString() ?? "10");
-            svg.Replace("%CHAM%", FormatMod(Cha ?? 10));
+            int cha = Cha ?? 10;
+            svg.Replace("%CHA%", cha.ToString());
+            svg.Replace("%CHAM%", FormatMod(cha));
 
             return new MemoryStream(Encoding.UTF8.GetBytes(svg.ToString()));
         }

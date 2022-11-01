@@ -10,6 +10,24 @@ var int = "IntLike";
 var wis = "WisLike";
 var cha = "ChaLike";
 
+function checkStatsChoiceValid() {
+    let choices = [
+        document.getElementById('Str').value,
+        document.getElementById('Dex').value,
+        document.getElementById('Con').value,
+        document.getElementById('Int').value,
+        document.getElementById('Wis').value,
+        document.getElementById('Cha').value,
+    ];
+
+    let values = choices.sort((a, b) => a - b).reverse().toString();
+    let stats = document.getElementById('Stats').innerText;
+    allPresent = values === stats;
+
+    document.getElementById('FormSubmit').disabled = !allPresent;
+    document.getElementById('UniqueWarn').hidden = allPresent;
+}
+
 /**
  * Gets selected class and displays stats that are preferrable for it.
  * */
@@ -37,6 +55,9 @@ function showBestStats() {
 function resetStats() {
     let stats = getFineStats();
     setAllStatsSelects(stats);
+
+    document.getElementById('FormSubmit').disabled = true;
+    document.getElementById('UniqueWarn').hidden = false;
 }
 
 /**
@@ -77,7 +98,7 @@ function replaceSelectOptions(id, options) {
         let value = options[i];
 
         option.value = value;
-        option.innerHTML = value;
+        option.innerHTML = `${i + 1}) ${value}`;
         select.appendChild(option);
     }
 }
