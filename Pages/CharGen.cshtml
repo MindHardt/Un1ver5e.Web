@@ -42,10 +42,13 @@ window.onload = function() {
 	@Html.DropDownList("Alignment", Model.Alignments, @Model.Alignment ?? "---")
 	<br /><br />
 
-	<label for="StatsTable">Распределите характеристики :</label><br />
-	<button onclick="resetStats()" type="button">Новые характеристики 🔁</button> 
-	<span style="color:gray" id="Stats"></span>
-	<table border="0" id="StatsTable">
+	<div class="main-section__numbers">
+	<label for="StatsTable" class="main-section__label">Распределите характеристики :</label><br />
+	<div class="main-section__button">
+		<button onclick="resetStats()" type="button">Новые характеристики 🔁</button> 
+		<span style="color:gray" id="Stats"></span>
+	</div>
+	<table border="0" id="StatsTable" class="main-section__stats">
 		<tr>
 			<td>💪</td>
 			<td>
@@ -115,13 +118,16 @@ window.onload = function() {
 
 	</table>
 
-	<input id="FormSubmit" type="submit" name="action" value="✅ Сохранить" disabled>
-	<span id="UniqueWarn" style="color:red">Значения статов повторяются!</span>
+	<div class="main-section__save">
+		<input id="FormSubmit" type="submit" name="action" value="✅ Сохранить" disabled>
+		<span id="UniqueWarn" style="color:red">Значения статов повторяются!</span>
+	</div>
+	</div>
 }
 </div>
 
 <div class="additional-section">
-	<details>
+	<details class="additional-section__characteristics">
 		<summary>Описания характеристик</summary>
 		<ul class="stats-info">
 			<li>💪 <b>Сила.</b> Мощь рук, ног и других мышц тела. Отвечает за урон в ближнем бою, плавание и лазание.</li>
@@ -133,7 +139,7 @@ window.onload = function() {
 		</ul>
 	</details>
 
-	<details>
+	<details class="additional-section__race">
 		<summary>Раса</summary>
 		<ul class="stats-info">
 			<li>🧑 <b>Человек.</b> Эта раса самая распространенная в Делоремоне. Благодаря силе и воле их предки завоевали большинство земель, а сами они могут проявить себя в любых делах.</li>
@@ -145,7 +151,7 @@ window.onload = function() {
 		</ul>
 	</details>
 
-	<details>
+	<details class="additional-section__class">
 		<summary>Класс</summary>
 		<ul class="stats-info--bold">
 			<li>🎓Алхимик</li>
@@ -163,7 +169,7 @@ window.onload = function() {
 		</ul>
 	</details>
 
-	<details>
+	<details class="additional-section__world-view">
 		<summary>Мировоззрение</summary>
 		<ul class="stats-info--bold">
 			<li>[LG] Законно-добрый</li>
@@ -178,7 +184,7 @@ window.onload = function() {
 		</ul>
 	</details>
 
-	<details>
+	<details class="additional-section__hints">
 		<summary>Подсказки</summary>
 		<ul>
 			<li>👍</li>
