@@ -26,3 +26,22 @@ body {
     text-align: right;
     font-size: 14px;
 }
+
+.full-page{
+    display: flex;
+}
+
+.main-section{
+    order: 0;
+    width: 60%;
+}
+
+.additional-section{
+    order: 1;
+    width: 40%;
+    text-align: justify;
+}
+
+.stats-info--bold{
+    font-weight: bold;
+}
