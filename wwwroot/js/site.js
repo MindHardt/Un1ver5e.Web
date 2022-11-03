@@ -22,23 +22,51 @@ const StatRaces = {
     wis: `${Stats.wis}Race`,
     cha: `${Stats.cha}Race`,
 }
+const StatTotals = {
+    str: `${Stats.str}Total`,
+    dex: `${Stats.dex}Total`,
+    con: `${Stats.con}Total`,
+    int: `${Stats.int}Total`,
+    wis: `${Stats.wis}Total`,
+    cha: `${Stats.cha}Total`,
+}
+const StatMods = {
+    str: `${Stats.str}Mod`,
+    dex: `${Stats.dex}Mod`,
+    con: `${Stats.con}Mod`,
+    int: `${Stats.int}Mod`,
+    wis: `${Stats.wis}Mod`,
+    cha: `${Stats.cha}Mod`,
+}
 
 /**
  * Checks if provided stat values are valid and forbids submit if not.
  * */
 function checkStatsChoiceValid() {
-    let choices = [
-        document.getElementById('Str').value,
-        document.getElementById('Dex').value,
-        document.getElementById('Con').value,
-        document.getElementById('Int').value,
-        document.getElementById('Wis').value,
-        document.getElementById('Cha').value,
-    ];
+    let choices = [];
+
+    for (stat in Stats) {
+        let choiceId = Stats[stat];
+        let totalId = StatTotals[stat];
+        let raceId = StatRaces[stat];
+        let modId = StatMods[stat];
+
+        let choice = document.getElementById(choiceId).value;
+
+        let raceBonus = parseInt(document.getElementById(raceId).innerText || 0);
+
+        let total = parseInt(choice || 10) + raceBonus;
+        let mod = formatMod(getMod(total));
+
+        document.getElementById(totalId).innerText = total;
+        document.getElementById(modId).innerText = mod;
+
+        choices.push(choice);
+    }
 
     let values = choices.sort((a, b) => a - b).reverse().toString();
     let stats = document.getElementById('Stats').innerText;
-    allPresent = values === stats;
+    allPresent = (values === stats);
 
     document.getElementById('FormSubmit').disabled = !allPresent;
     document.getElementById('UniqueWarn').hidden = allPresent;
@@ -160,7 +188,8 @@ function processHumanRaceBonus() {
     clearRaceBonuses();
     let id = document.getElementById('HumanRaceBonusSelect').value;
 
-    document.getElementById(id).innerText = "➕";
+    document.getElementById(id).innerHTML = '<span style="color:lime">+2</span>';
+    checkStatsChoiceValid();
 }
 /**
  * Gets selected race and displays which stats it affects and how.
@@ -179,9 +208,14 @@ function showCurrentRaceBonuses() {
     }
     let affectedStats = getRaceStatsIds(race);
 
-    document.getElementById(affectedStats[0]).innerText = "➕";
-    document.getElementById(affectedStats[1]).innerText = "➕";
-    document.getElementById(affectedStats[2]).innerText = "➖";
+    let add = '<span style="color:forestgreen">+2</span>';
+    let sub = '<span style="color:red">-2</span>';
+
+    document.getElementById(affectedStats[0]).innerHTML = add;
+    document.getElementById(affectedStats[1]).innerHTML = add;
+    document.getElementById(affectedStats[2]).innerHTML = sub;
+
+    checkStatsChoiceValid();
 }
 /**
  * Removed any race bonus marks.
@@ -267,4 +301,8 @@ function getd6() {
  */
 function getMod(stat) {
     return Math.floor(stat / 2 - 5);
+}
+
+function formatMod(mod) {
+    return mod < 0 ? mod.toString() : `+${mod}`;
 }

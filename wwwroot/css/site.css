@@ -39,28 +39,19 @@ body {
     width: 60%;
 }
 
-/*.main-section__numbers {
+.main-section__check{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 
-.main-section__label {
-    order: 0;
-    padding: 10px;
+#FormSubmit{
+    order:0;
+    height:30px;
 }
 
-.main-section__button {
-    order: 1;
+#UniqueWarn{
+    order:1;
 }
-
-.main-section__stats {
-    order: 2;
-}
-
-.main-section__save {
-    top: 100px;
-    order: 3;
-}*/
 
 .additional-section {
     order: 1;

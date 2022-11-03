@@ -21,6 +21,7 @@ window.onload = function() {
 	<label for="Race">Выберите расу</label><br />
 	@Html.DropDownList("Race", Model.Races, @Model.Race ?? "---", new { onchange = "showCurrentRaceBonuses()" })
 	<select id="HumanRaceBonusSelect" hidden onchange="processHumanRaceBonus()">
+		<option selected disabled hidden>---</option>
 		<option value="StrRace">💪</option>
 		<option value="DexRace">🏃‍</option>
 		<option value="ConRace">🩸</option>
@@ -55,7 +56,8 @@ window.onload = function() {
 			</td>
 			<td><div id="StrLike"></div></td>
 			<td><div id="StrRace"></div></td>
-			<td><div id="StrTotal"></div></td>
+			<td><div class="stats-info--bold" id="StrTotal"></div></td>
+			<td><div id="StrMod"></div></td>
 		</tr>
 		<tr>
 			<td>🏃‍</td>
@@ -66,7 +68,8 @@ window.onload = function() {
 			</td>
 			<td><div id="DexLike"></div></td>
 			<td><div id="DexRace"></div></td>
-			<td><div id="DexTotal"></div></td>
+			<td><div class="stats-info--bold" id="DexTotal"></div></td>
+			<td><div id="DexMod"></div></td>
 		</tr>
 		<tr>
 			<td>🩸</td>
@@ -77,7 +80,8 @@ window.onload = function() {
 			</td>
 			<td><div id="ConLike"></div></td>
 			<td><div id="ConRace"></div></td>
-			<td><div id="ConTotal"></div></td>
+			<td><div class="stats-info--bold" id="ConTotal"></div></td>
+			<td><div id="ConMod"></div></td>
 		</tr>
 		<tr>
 			<td>🧠</td>
@@ -88,7 +92,8 @@ window.onload = function() {
 			</td>
 			<td><div id="IntLike"></div></td>
 			<td><div id="IntRace"></div></td>
-			<td><div id="IntTotal"></div></td>
+			<td><div class="stats-info--bold" id="IntTotal"></div></td>
+			<td><div id="IntMod"></div></td>
 		</tr>
 		<tr>
 			<td>🦉</td>
@@ -99,7 +104,8 @@ window.onload = function() {
 			</td>
 			<td><div id="WisLike"></div></td>
 			<td><div id="WisRace"></div></td>
-			<td><div id="WisTotal"></div></td>
+			<td><div class="stats-info--bold" id="WisTotal"></div></td>
+			<td><div id="WisMod"></div></td>
 		</tr>
 		<tr>
 			<td>👄</td>
@@ -110,13 +116,16 @@ window.onload = function() {
 			</td>
 			<td><div id="ChaLike"></div></td>
 			<td><div id="ChaRace"></div></td>
-			<td><div id="ChaTotal"></div></td>
+			<td><div class="stats-info--bold" id="ChaTotal"></div></td>
+			<td><div id="ChaMod"></div></td>
 		</tr>
 
 	</table>
 
-	<input id="FormSubmit" type="submit" name="action" value="✅ Сохранить" disabled>
-	<span id="UniqueWarn" style="color:red">Значения статов повторяются!</span>
+	<div class="main-section__check">
+		<input id="FormSubmit" type="submit" name="action" value="✅ Сохранить" disabled>
+		<div id="UniqueWarn"><details><summary>⚠</summary><span style="color: red">Значения статов повторяются!</span></details></div>
+	</div>
 }
 </div>
 
@@ -223,11 +232,9 @@ window.onload = function() {
 	</details>
 
 	<details>
-		<summary>Справка</summary>
+		<summary>Подсказка</summary>
 		<ul class="stats-info">
 			<li>👍 означает что вашему классу эта характеристика приоритетна.</li>
-			<li>➕ эта характеристика у вашей расы повышена (+2).</li>
-			<li>➖ эта характеристика у вашей расы занижена (-2).</li>
 		</ul>
 	</details>
 </div>

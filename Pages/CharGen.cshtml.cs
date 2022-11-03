@@ -19,17 +19,17 @@ namespace Un1ver5e.ru.Pages
         public string? Alignment { get; set; }
 
         [BindProperty]
-        public int? Str { get; set; }
+        public int? StrTotal { get; set; }
         [BindProperty]
-        public int? Dex { get; set; }
+        public int? DexTotal { get; set; }
         [BindProperty]
-        public int? Con { get; set; }
+        public int? ConTotal { get; set; }
         [BindProperty]
-        public int? Int { get; set; }
+        public int? IntTotal { get; set; }
         [BindProperty]
-        public int? Wis { get; set; }
+        public int? WisTotal { get; set; }
         [BindProperty]
-        public int? Cha { get; set; }
+        public int? ChaTotal { get; set; }
 
         public IActionResult OnPost()
         {
@@ -112,27 +112,27 @@ namespace Un1ver5e.ru.Pages
             svg.Replace("%GENDER%", Gender);
             svg.Replace("%ALIGNMENT%", Alignment);
             //💪
-            int str = Str ?? 10;
+            int str = StrTotal ?? 10;
             svg.Replace("%STR%", str.ToString());
             svg.Replace("%STRM%", FormatMod(str));
             //🏃‍
-            int dex = Dex ?? 10;
+            int dex = DexTotal ?? 10;
             svg.Replace("%DEX%", dex.ToString());
             svg.Replace("%DEXM%", FormatMod(dex));
             //🩸
-            int @con = Con ?? 10;
+            int @con = ConTotal ?? 10;
             svg.Replace("%CON%", con.ToString());
             svg.Replace("%CONM%", FormatMod(con));
             //🧠
-            int @int = Int ?? 10;
+            int @int = IntTotal ?? 10;
             svg.Replace("%INT%", @int.ToString());
             svg.Replace("%INTM%", FormatMod(@int));
             //🦉
-            int wis = Wis ?? 10;
+            int wis = WisTotal ?? 10;
             svg.Replace("%WIS%", wis.ToString());
             svg.Replace("%WISM%", FormatMod(wis));
             //👄
-            int cha = Cha ?? 10;
+            int cha = ChaTotal ?? 10;
             svg.Replace("%CHA%", cha.ToString());
             svg.Replace("%CHAM%", FormatMod(cha));
 
